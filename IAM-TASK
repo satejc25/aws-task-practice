@@ -1,0 +1,139 @@
+Q1)Create a policy to access all objects in a specific bucket.---->create user--->create resource policy----->add bucket arn---->assign policy to user
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q2)Create a policy to access only 2 objects in a specific bucket.?---->make bucket private----->enable acl---->make 2 objects public----->give permission only of read and list--->apply this policy on user
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q3)Create a policy to deny the access of Specific bucket.
+------>>first give access to all bucket and then apply resource policy to bucket which we want to deny access
+      {
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "Statement1",
+			"Effect": "Deny",
+			"Action": [
+				"s3:*"
+			],
+			"Resource": [
+				"arn:aws:s3:::storebkt"
+			]
+		}
+	]
+}
+here we have denied access to store bucket
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q4)Create policy to create the user only and can attach policy to them.
+Here we have created a policy in which another user has only permission to create user and attach only policy without full iam access
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "VisualEditor0",
+			"Effect": "Allow",
+			"Action": [
+				"iam:ListPolicies",
+				"iam:CreateLoginProfile",
+				"iam:GetAccountPasswordPolicy",
+				"iam:GetPolicy",
+				"iam:GetUserPolicy",
+				"iam:UpdateUser",
+				"iam:AttachUserPolicy",
+				"iam:ListUsers",
+				"iam:GetUser",
+				"iam:CreateUser",
+				"iam:GetLoginProfile"
+			],
+			"Resource": "*"
+		}
+	]
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q5)Create a policy to place the user in a group only.
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "VisualEditor0",
+			"Effect": "Allow",
+			"Action": [
+				"iam:AddUserToGroup",
+				"iam:ListGroupsForUser",
+				"iam:GetUser",
+				"iam:GetGroup"
+			],
+			"Resource": [
+				"arn:aws:iam::093341920648:group/demo-grp",
+				"*"
+			]
+		},
+		{
+			"Sid": "VisualEditor1",
+			"Effect": "Allow",
+			"Action": [
+				"iam:ListUsers",
+				"iam:ListGroups"
+			],
+			"Resource": "*"
+		}
+	]
+}
+we have written policy where another user has access to put all other users into a specific group.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q6) Policy to get ""read"" access of all users,groups but not policy.
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "VisualEditor0",
+			"Effect": "Allow",
+			"Action": [
+				"iam:ListGroupsForUser",
+				"iam:ListUsers",
+				"iam:ListGroups",
+				"iam:GetUser",
+				"iam:GetGroup"
+			],
+			"Resource": "*"
+		}
+	]
+}
+here we have written policy to access only user and groups from iam services.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q7)Policy to get access to billing,ec2 and cloudwatch.
+create user------>add permission----->billingaccess--->ec2access---->cloudwatch----->attach policy.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q8)Create a resource based policy and attach to S3_B16 Bucket & only sunny user able to access that bucket.
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "VisualEditor0",
+			"Effect": "Allow",
+			"Action": [
+				"s3:ListAccessPointsForObjectLambda",
+				"s3:GetAccessPoint",
+				"s3:PutAccountPublicAccessBlock",
+				"s3:ListAccessPoints",
+				"s3:CreateStorageLensGroup",
+				"s3:ListJobs",
+				"s3:PutStorageLensConfiguration",
+				"s3:ListMultiRegionAccessPoints",
+				"s3:ListStorageLensGroups",
+				"s3:ListStorageLensConfigurations",
+				"s3:GetAccountPublicAccessBlock",
+				"s3:ListAllMyBuckets",
+				"s3:ListAccessGrantsInstances",
+				"s3:PutAccessPointPublicAccessBlock",
+				"s3:CreateJob",
+				"s3:*"
+			],
+			"Resource": "*"
+		},
+		{
+			"Sid": "VisualEditor1",
+			"Effect": "Allow",
+			"Action": "s3:*",
+			"Resource": "arn:aws:s3:::s3b20"
+		}
+	]
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
