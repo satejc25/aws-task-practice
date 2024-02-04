@@ -1,0 +1,30 @@
+DynamoDB
+
+Uploading file to dynamodb using AWS CLI
+
+Attach role of dynamodb to aws ec2 instance
+
+Curl -O " https://taskbuckket.s3.apsouth-1.amazonaws.com/product/Copy+of+ProductCatalog.json" 
+ file will get down load on your instance
+ then run this following command
+
+# aws dynamodb batch-write-item  --request-items file://Copy+of+ProductCatalog.json
+Result :- 
+{
+    "UnprocessedItems": {}
+}
+
+Table shall get create at dynamodb automatically.
+
+
+-----------------------------------------------------------------------------
+To put object into S3 bucket use following steps
+
+1)Attach s3 role to aws instance
+2)Create bucket
+   aws s3api create-bucket --bucket dynamodb-file
+3) aws s3 cp abc.txt s3://bucketname
+
+This will put file into a s3 bucket
+
+------------------------------------------------------------------------------
